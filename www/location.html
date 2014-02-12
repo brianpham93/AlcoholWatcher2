@@ -6,7 +6,12 @@
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="js/getParam.js"></script>
 <script src="js/getLocation.js"></script>
-
+<script>
+function navigateToAdd(){
+	var name = GET.name;
+	window.location.href = 'addNew.html?aName='+name+'';
+}
+</script>
 </head>
 
 <body>
@@ -17,6 +22,6 @@
 <ol id = "locationList">
 </ol>
 <br>
-<input type="button" value="Add">
+<input type="button" value="Add" onClick="navigateToAdd()">
 </body>
 </html>

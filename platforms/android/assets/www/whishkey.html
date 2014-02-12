@@ -3,43 +3,34 @@
 <head>
 <meta charset="utf-8">
 <title>Cocktail with WHISHKEY</title>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="js/getParam.js"></script>
+<script src="js/getDBWhishkey.js"></script>
+<script> window.onload = function () {
+if(! window.device)
+	onDeviceReady();
+}</script>
 </head>
 
 <body>
+
 <div id = "header" >
 <h1>Cocktail with WHISHKEY</h1>
-<input type="button" id="btnBack" value="Back" onClick="window.location = 'index.html'">
-</div>
-<ol id="whishkeyList">
-<div id = "Anaconda" onclick = "window.location = 'detail.html?id=Anaconda'">
-<p>Anaconda</p>
-</div>
-<div id = "BourbonBall" onclick = "window.location = 'detail.html?id=BourbonBall'">
-<p>Bourbon Ball</p>
-</div>
-<div id = "ChampagneJulep">
-<p>ChampagneJulep</p>
-</div>
-<div id = "Dublinder">
-<p>Dublinder</p>
-</div>
-<div id = "EverybodyIrish">
-<p>Everybody's Irish</p>
-</div>
-<div id = "Four Leaf Clover">
-<p>Four Leaf Clover</p>
-</div>
-<div id = "Godfather">
-<p>Godfather</p>
-</div>
-<div id = "Irish Blond">
-<p>Irish Blond</p>
-</div>
-<div id = "Irish Buck">
-<p>Irish Buck</p>
 </div>
 
+<ol id="whishkeyList">
 </ol>
+
+<div>
+<p>For testing</p>
+<input type="number" id="id"><br>
+<input type="text" id="cName"><br>
+<input type="text" id="cCategory"><br>
+<input type="text" id="cImg"><br>
+<input type="text" id="cLongtitude"><br>
+<input type="text" id="cLatitude"><br>
+<input type="button" value ="Add" onClick="insert()">
+</div>
 
 </body>
 </html>
