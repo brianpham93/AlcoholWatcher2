@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script>
+GET = (function () {
+    var get = {
+        push:function (key,value){
+            var cur = this[key];
+            if (cur.isArray){
+                this[key].push(value);
+            }else {
+                this[key] = [];
+                this[key].push(cur);
+                this[key].push(value);
+            }
+        }
+    },
+    search = document.location.search,
+    decode = function (s,boo) {
+        var a = decodeURIComponent(s.split("+").join(" "));
+        return boo? a.replace(/\s+/g,''):a;
+    };
+    search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function (a,b,c) {
+        if (get[decode(b,true)]){
+            get.push(decode(b,true),decode(c));
+        }else {
+            get[decode(b,true)] = decode(c);
+        }
+    });
+    return get;
+})();
+</script>
+
+</head>
+
+<body>
+	<p><script>document.write(GET.id)</script></p>
+	<p><script>document.write(GET.location)</script></p>
+</body>
+</html>
