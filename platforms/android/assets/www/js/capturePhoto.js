@@ -49,16 +49,20 @@ function onPhotoURISuccess(imageURI) {
 
   // Get image handle
   //
-  var largeImage = document.getElementById('largeImage');
+  alert('before load');
+  var largeImage = document.getElementById('photo');
 
   // Unhide image elements
   //
-  largeImage.style.display = 'inherit';
+  alert('before set style');
+  largeImage.style.display = 'compact';
 
   // Show the captured photo
   // The in-line CSS rules are used to resize the image
   //
+  alert('add src');
   largeImage.src = imageURI;
+  alert('add ok');
 }
 
 // A button will call this function
@@ -66,15 +70,15 @@ function onPhotoURISuccess(imageURI) {
 function capturePhoto() {
   // Take picture using device camera and retrieve image as base64-encoded string
   alert('capturePhoto() loaded');
-  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 100,destinationType: destinationType.DATA_URL });
+  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 100,destinationType: destinationType.FILE_URI });
 }
 
 // A button will call this function
 //
 function capturePhotoEdit() {
   // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-	destinationType: destinationType.DATA_URL });
+  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 20, allowEdit: true,
+	destinationType: destinationType.FILE_URI});
 }
 
 // A button will call this function
