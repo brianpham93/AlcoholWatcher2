@@ -7,7 +7,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // PhoneGap is ready
 //
 function onDeviceReady() {
-	db = window.openDatabase("DB4", "1.0", "DB4", 2000);
+	db = window.openDatabase("DB5", "1.0", "DB5", 2000);
 	db.transaction(populateDB, errorCB, successCB);
 	db.transaction(getAlcohol, errorCB);		
 }
@@ -35,7 +35,7 @@ function getAlcohol_success(tx, results){
 // Populate the database 
 //
 function populateDB(tx) {
-	 tx.executeSql('CREATE TABLE IF NOT EXISTS COCKTAIL (id primary key, cName varchar(50), cCategory varchar(50), cImg varchar(50), cLongtitude varchar(50), cLatitude varchar(50))');
+	 tx.executeSql('CREATE TABLE IF NOT EXISTS COCKTAIL (id integer primary key, cName varchar(50), cCategory varchar(50), cImg varchar(200), cLongtitude varchar(50), cLatitude varchar(50))');
 	 dbCreated = true;
 }
 

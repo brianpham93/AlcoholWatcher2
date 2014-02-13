@@ -60,10 +60,10 @@ function saveToDB(){
 }
 function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
 	//alert('open db');
-	db = window.openDatabase("DB4", "1.0", "DB4", 2000);
+	db = window.openDatabase("DB5", "1.0", "DB5", 2000);
 	//alert('start insert');
 	db.transaction(function(tx){
-	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
+	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id, cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
 //alert(tx);
 });
 }
