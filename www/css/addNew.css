@@ -1,22 +1,29 @@
-@charset "utf-8";
+@media (width:720px) and (height:1280px){
+#addPhoto {
+	width: 300px;
+	margin-left: 210px;
+	height: 400px;
+	margin-right: 210px;
+	position: fixed;
+	top: 20px;
+	left: 0px;
+	bottom: 20px;
+}
+#addPhoto #photo {
+
+}
+#addPhoto #captureBtn {
+	width: 200px;
+	height: 30px;
+	margin-left: 50px;
+	position: fixed;
+}
+
+
+
+}
 body {
- background:#000000;
- font-family:Helvetica;
- font-size:75%;
- margin:0;
- padding:0;
- }
- 
-.btn{
- border: 2px solid #222222;
- -webkit-border-radius: 9px;
- border-radius: 9px;
- text-align:center;
- display:block;
- background:#eeeeee;
- width:280px;
- color:#222;
- text-decoration:none;
- padding:10px;
- margin:12px;
- }
+	width: 720px;
+	height: 1280px;
+	position: fixed;
+}

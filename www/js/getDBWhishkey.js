@@ -20,13 +20,13 @@ function getAlcohol(tx){
 function getAlcohol_success(tx, results){
 	//alert('get alcohol success');
 	var len = results.rows.length;
+
 	//alert(len);
 	//var s = "";
 	for (var i=0; i<len; i++){
 		var alcohol = results.rows.item(i);
 		//alert('before append');
-		$('#whishkeyList').append('<li><a href="location.html?name=' + alcohol.cName + '">' +
-				'<p>' + alcohol.cName + '</p></li>');
+		$('#whishkeyList').append('<li><a href="location.html?name=' + alcohol.cName + '&category=whishkey"><p>' + alcohol.cName + '</p></li>');
 		
 	}
 	

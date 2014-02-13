@@ -1,38 +1,102 @@
-// JavaScript Document
-// Wait for PhoneGap to load
-var db = null;
-var dbCreated = false;
-var itemName = GET.name;
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
-	db = window.openDatabase("DB4", "1.0", "DB4", 2000);
-	db.transaction(getLocation, errorCB);		
+function findMyLocation() {
+//Check the network connection
+//alert('findMyLocation loaded');
+var networkConnection = navigator.connection.type;
+var states = {};
+states[Connection.UNKNOWN] = 'Unknown connection';
+states[Connection.ETHERNET] = 'Ethernet connection';
+states[Connection.WIFI] = 'WiFi connection';
+states[Connection.CELL_2G] = 'Cell 2G connection';
+states[Connection.CELL_3G] = 'Cell 3G connection';
+states[Connection.CELL_4G] = 'Cell 4G connection';
+states[Connection.CELL] = 'Cell generic connection';
+states[Connection.NONE] = 'No network connection'
+alert('Connection type: ' + states[networkConnection]);
+if (networkConnection != null) {
+	//Find your location
+   // alert('start get pos');
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+		timeout: 60000,
+		enableHighAccuracy: true,
+		maximumAge: 90000
+	});
+   // alert('after get possition');
+} else {
+	alert('Please check your network connection and try again.');
+}
 }
 
-function getLocation(tx){
-	var sql = "select * from COCKTAIL where cName = '" + itemName + "'";
-	tx.executeSql(sql, [] , getLocation_success);
+function onSuccess(position) {
+//alert('succ');
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+getDetails(latitude, longitude);
 }
 
-function getLocation_success(tx, results){
-	//alert('get location success');
-	var len = results.rows.length;
-	for (var i=0; i<len; i++){
-		var record = results.rows.item(i);
-		//alert('before append');
-		$('#locationList').append('<li><a href="detail.html?name=' + record.cName + '&longtitude='+ record.cLongtitude +'"><p>' + record.cLongtitude + " " + record.cLatitude +'</p></li>');
-	}
-}
-function errorCB(tx, err) {
-	alert("Error processing SQL: "+err);
+function onError(error) {
+//alert('Error' + error.code + error.message);
 }
 
-function successCB() {
-	//dbCreated= true;
+function getDetails(latitude, longitude) {
+//alert('get detail loaded');
+var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
+$.getJSON(url, function (data) {
+	var formatted_address = data['results'][0]['formatted_address'];
+	htmlData = 'Latitude : ' + latitude + '';
+	htmlData += 'Longitude : ' + longitude + '';
+	htmlData += 'Location : ' + formatted_address;
+	document.getElementById("longtt").innerHTML = longitude;
+	alert(longitude);
+	document.getElementById("latt").innerHTML = latitude;
+	alert(latitude);
+	//alert('draw map');
+	var centerLocation = new google.maps.LatLng(latitude, longitude);
+
+	var myOptions = {
+		center: centerLocation,
+		zoom: 16,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+
+	map_element = document.getElementById("map_canvas");
+	map = new google.maps.Map(map_element, myOptions);
+
+	var marker = new google.maps.Marker({
+		position: centerLocation,
+		title: "My Current Location!"
+	});
+	marker.setMap(map);
+
+	var mapwidth = $(window).width();
+	var mapheight = $(window).height();
+	$("#map_canvas").height(mapheight);
+	$("#map_canvas").width(mapwidth);
+	google.maps.event.trigger(map, 'resize');
+});
 }
 
-window.onload = function () {
-    if(! window.device)
-        onDeviceReady()
+function drawMap(latitude, longitude) {
+//alert('draw map');
+var centerLocation = new google.maps.LatLng(latitude, longitude);
+
+var myOptions = {
+	center: centerLocation,
+	zoom: 16,
+	mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+
+map_element = document.getElementById("map_canvas");
+map = new google.maps.Map(map_element, myOptions);
+
+var marker = new google.maps.Marker({
+	position: centerLocation,
+	title: "My Current Location!"
+});
+marker.setMap(map);
+
+var mapwidth = $(window).width('400px');
+var mapheight = $(window).height('400px');
+$("#map_canvas").height(mapheight);
+$("#map_canvas").width(mapwidth);
+google.maps.event.trigger(map, 'resize');
 }

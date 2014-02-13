@@ -8,81 +8,27 @@ document.addEventListener("deviceready",onDeviceReady,false);
 // device APIs are available
 //
 function onDeviceReady() {
-	alert('device ready');
 	pictureSource=navigator.camera.PictureSourceType;
 	destinationType=navigator.camera.DestinationType;
 }
 function getImgURL(){
-	alert('getURL');
 	var src = document.getElementById("photo").getAttribute("src");
-	alert('getPhoto done');
-	document.getElementById("photoURL").innerHTML = src;
+	return src;
+	//document.getElementById("photoURL").innerHTML = src;
 }
 
-// Called when a photo is successfully retrieved
-//
-function onPhotoDataSuccess(imageData) {
-  // Uncomment to view the base64-encoded image data
-  // console.log(imageData);
-  // Get image handle
-  //
-  alert('onPhotoDataSuccess');
-  var capturedPhoto = document.getElementById('photo');
-
-  // Unhide image elements
-  alert('get element done');
-  capturedPhoto.style.display = 'inherit';
-  alert('set style done');
-
-  // Show the captured photo
-  // The in-line CSS rules are used to resize the image
-  //
-  capturedPhoto.src = "data:image/jpeg;base64," + imageData;
-  alert('set src done');
-}
-
-// Called when a photo is successfully retrieved
-//
 function onPhotoURISuccess(imageURI) {
-  // Uncomment to view the image file URI
-  // console.log(imageURI);
-
-  // Get image handle
-  //
-  alert('before load');
   var largeImage = document.getElementById('photo');
 
-  // Unhide image elements
-  //
-  alert('before set style');
   largeImage.style.display = 'compact';
-
-  // Show the captured photo
-  // The in-line CSS rules are used to resize the image
-  //
-  alert('add src');
   largeImage.src = imageURI;
-  alert('add ok');
 }
 
-// A button will call this function
-//
 function capturePhoto() {
   // Take picture using device camera and retrieve image as base64-encoded string
-  alert('capturePhoto() loaded');
   navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 100,destinationType: destinationType.FILE_URI });
 }
 
-// A button will call this function
-//
-function capturePhotoEdit() {
-  // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 20, allowEdit: true,
-	destinationType: destinationType.FILE_URI});
-}
-
-// A button will call this function
-//
 function getPhoto(source) {
   // Retrieve image file location from specified source
   navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
@@ -90,12 +36,43 @@ function getPhoto(source) {
 	sourceType: source });
 }
 
-// Called if something bad happens.
-//
 function onFail(message) {
   alert('Failed because: ' + message);
-}// JavaScript Document
+}
 
+function getRandomInt (min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function saveToDB(){
+	var id = getRandomInt(1,1000000);
+	alert(id);
+	var name = GET.aName;
+	alert(name);
+	var category = GET.category;
+	alert(category);
+	var imgUrl = getImgURL();
+	alert(imgUrl);
+	var plongtt = document.getElementById("longtt").innerHTML;
+	alert(plongtt);
+	var platt = document.getElementById("latt").innerHTML;
+	alert(platt);
+	insertIntoDB(id,name,category,imgUrl,plongtt,platt);
+}
+function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
+	alert('open db');
+	db = window.openDatabase("DB4", "1.0", "DB4", 2000);
+	alert('start insert');
+	db.transaction(function(tx){
+	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
+//alert(tx);
+});
+}
+function successCB(){
+	alert('done');
+}
+function errorCB(err){
+	alert(err);
+}
 window.onload = function () {
     if(! window.device)
         onDeviceReady()
