@@ -6,24 +6,130 @@
 <script src="js/getParam.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script src="js/capturePhoto.js"></script>
+<link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+<script charset="utf-8" type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script charset="utf-8" type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<style>
+ 
+        body {
+            background:#000000;
+            font-family:Helvetica;
+            font-size:75%;
+            margin:0;
+            padding:0;
+        }
+ 
+        .btn{
+            border: 2px solid #222222;
+            -webkit-border-radius: 9px;
+            border-radius: 9px;
+            text-align:center;
+            display:block;
+            background:#eeeeee;
+            width:280px;
+            color:#222;
+            text-decoration:none;
+            padding:10px;
+            margin:12px;
+        }
+ 
+</style>
+
+<script>function findMyLocation() {
+ //Check the network connection
+ alert('findMyLocation loaded');
+ var networkConnection = navigator.connection.type;
+ var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection'
+	alert('Connection type: ' + states[networkConnection]);
+ if (networkConnection != null) {
+ //Find your location
+ 	alert('start get pos');
+ 	navigator.geolocation.getCurrentPosition(onSuccess, onError,{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
+	alert('after get possition');
+ }
+ else{
+ alert('Please check your network connection and try again.');
+ }
+ }
+ 
+function onSuccess(position) {	
+ alert('succ');
+ var latitude = position.coords.latitude;
+ var longitude = position.coords.longitude;
+ getDetails(latitude, longitude);
+ alert('getdetail done');
+ }
+ 
+function onError(error) {
+ alert('Some error occured please try again.');
+ }
+ 
+ function getDetails(latitude, longitude) {
+	 alert('get detail loaded');
+ var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=true";
+ $.getJSON(url, function(data) {
+ var formatted_address = data['results'][0]['formatted_address'];
+ htmlData = 'Latitude : ' + latitude + '';
+ htmlData += 'Longitude : ' + longitude + '';
+ htmlData += 'Location : ' + formatted_address;
+ alert('before draw map');
+ $("#location").html('<a class="btn" onclick="drawMap('+latitude+', '+longitude+');" href="#">'+htmlData+'</a>');
+ });
+ }
+ 
+function drawMap(latitude, longitude) {
+	alert('draw map');
+ var centerLocation = new google.maps.LatLng(latitude, longitude);
+ 
+var myOptions = {
+ center: centerLocation,
+ zoom: 16,
+ mapTypeId: google.maps.MapTypeId.ROADMAP
+ };
+ 
+map_element = document.getElementById("map_canvas");
+ map = new google.maps.Map(map_element, myOptions);
+ 
+var marker = new google.maps.Marker({
+ position: centerLocation,
+ title: "My Current Location!"
+ });
+ marker.setMap(map);
+ 
+var mapwidth = $(window).width();
+ var mapheight = $(window).height();
+ $("#map_canvas").height(mapheight);
+ $("#map_canvas").width(mapwidth);
+ google.maps.event.trigger(map, 'resize');
+ }
+</script>
 </head>
 
 <body>
-<div id='addPhoto'>
+<!--<div id='addPhoto'>
 	<img id="photo" src="" style="width:500px;height:500px">
     <br>
     <input type="button" id="captureBtn" value="Capture" onClick="capturePhoto()">
     <p id="photoURL"></p>
     <input type="button" onClick="getImgURL()" value="getURL">
 </div>
-
-<div id='addLocation'>
-	<img id="loadedLocation" style="width:500px;height:500px">
-    <br>
-    <input type="button" id="locateBtn" value="Locate">
+-->
+<div align="center">
+            <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
+            <p id="location"></p>
 </div>
+<div id="map_canvas"></div>
 
-<input id="saveBtn" type="button" value="Save">
+
+<!--<input id="saveBtn" type="button" value="Save">-->
 
 </body>
 </html>

@@ -1,0 +1,22 @@
+@charset "utf-8";
+body {
+ background:#000000;
+ font-family:Helvetica;
+ font-size:75%;
+ margin:0;
+ padding:0;
+ }
+ 
+.btn{
+ border: 2px solid #222222;
+ -webkit-border-radius: 9px;
+ border-radius: 9px;
+ text-align:center;
+ display:block;
+ background:#eeeeee;
+ width:280px;
+ color:#222;
+ text-decoration:none;
+ padding:10px;
+ margin:12px;
+ }
