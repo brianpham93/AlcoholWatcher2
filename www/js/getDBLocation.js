@@ -39,7 +39,7 @@ alert('start get detail');
 var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + xlatitude + "," + xlongitude + "&sensor=true";
 alert('before getson');
 $.getJSON(url, function (data) {
-	alert('before get add');
+	//alert('before get add');
 	var formatted_address = data['results'][0]['formatted_address'];
 	alert(formatted_address);
 	$('#locationList').append('<li><a href="detail.html?name=' + xname + '&longtitude='+ xlongitude +'"><p>' + formatted_address +'</p></li>');

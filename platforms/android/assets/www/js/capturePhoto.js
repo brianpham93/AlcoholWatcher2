@@ -45,23 +45,23 @@ function getRandomInt (min, max) {
 }
 function saveToDB(){
 	var id = getRandomInt(1,1000000);
-	alert(id);
+	//alert(id);
 	var name = GET.aName;
-	alert(name);
+	//alert(name);
 	var category = GET.category;
-	alert(category);
+	//alert(category);
 	var imgUrl = getImgURL();
-	alert(imgUrl);
+	//alert(imgUrl);
 	var plongtt = document.getElementById("longtt").innerHTML;
-	alert(plongtt);
+	//alert(plongtt);
 	var platt = document.getElementById("latt").innerHTML;
-	alert(platt);
+	//alert(platt);
 	insertIntoDB(id,name,category,imgUrl,plongtt,platt);
 }
 function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
-	alert('open db');
+	//alert('open db');
 	db = window.openDatabase("DB4", "1.0", "DB4", 2000);
-	alert('start insert');
+	//alert('start insert');
 	db.transaction(function(tx){
 	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
 //alert(tx);
