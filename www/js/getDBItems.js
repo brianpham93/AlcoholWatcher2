@@ -3,10 +3,11 @@
 var db = null;
 var dbCreated = false;
 document.addEventListener("deviceready", onDeviceReady, false);
-
+var category = "";
 // PhoneGap is ready
 //
 function onDeviceReady() {
+	category = GET.cate;
 	db = window.openDatabase("DB6", "1.0", "DB6", 2000);
 	//alert('before pop');
 	db.transaction(populateDB, errorCB, successCB);
@@ -14,9 +15,9 @@ function onDeviceReady() {
 	db.transaction(getAlcohol, errorCB);		
 }
 
+
 function getAlcohol(tx){
-	//alert('before getAl');
-	var sql = "select distinct cName from COCKTAIL where cCategory = 'rum'";
+	var sql = "select distinct cName from COCKTAIL where cCategory = '"+category+"'";
 	tx.executeSql(sql, [] , getAlcohol_success);
 }
 
@@ -29,7 +30,7 @@ function getAlcohol_success(tx, results){
 	for (var i=0; i<len; i++){
 		var alcohol = results.rows.item(i);
 		//alert('before append');
-		$('#rumList').append('<li><a href="location.html?name=' + alcohol.cName + '&category=rum"><p>' + alcohol.cName + '</p></li>');
+		$('#itemList').append('<li><a href="location.html?name=' + alcohol.cName + '&category='+category+'"><p>' + alcohol.cName + '</p></li>');
 	}
 	
 	//alert('before append');
@@ -72,3 +73,4 @@ function insert() {
 }
 
 
+// JavaScript Document

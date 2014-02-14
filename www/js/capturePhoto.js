@@ -81,6 +81,10 @@ function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
 });
 }
 function successCB(){
+	var name = GET.aName;
+	//alert(name);
+	var category = GET.category
+	window.location.href = 'location.html?name='+name+'&category='+category+'';
 	//alert('done');
 }
 function errorCB(err){

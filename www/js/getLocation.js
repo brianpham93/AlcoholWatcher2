@@ -1,6 +1,7 @@
 function findMyLocation() {
     //Check the network connection
     //alert('findMyLocation loaded');
+	document.getElementById("loading").innerHTML = 'Loading';
     var networkConnection = navigator.connection.type;
     var states = {};
     states[Connection.UNKNOWN] = 'Unknown connection';
@@ -28,6 +29,7 @@ function findMyLocation() {
 
 function onSuccess(position) {
     //alert('succ');
+	document.getElementById("loading").innerHTML = "Location loaded successfully";
     var latitude = position.coords.latitude;
     //alert(latitude);
     var longitude = position.coords.longitude;
@@ -36,7 +38,7 @@ function onSuccess(position) {
 }
 
 function onError(error) {
-    alert('Error' + " " + error.code + " " + error.message );
+    document.getElementById("loading").innerHTML = "Request time out. Signal is too weak";
 }
 
 function getDetails(latitude, longitude) {
@@ -45,7 +47,7 @@ function getDetails(latitude, longitude) {
     //alert(url);
     $.getJSON(url, function (data) {
         var formatted_address = data['results'][0]['formatted_address'];
-        //alert(formatted_address);
+       /* //alert(formatted_address);
         htmlData = 'Latitude : ' + latitude + '';
         htmlData += 'Longitude : ' + longitude + '';
         htmlData += 'Location : ' + formatted_address;
@@ -53,7 +55,7 @@ function getDetails(latitude, longitude) {
         //alert(longitude);
         document.getElementById("latt").innerHTML = latitude;
         //alert(latitude);
-        //alert('draw map');
+        //alert('draw map');*/
         var centerLocation = new google.maps.LatLng(latitude, longitude);
 
         var myOptions = {
@@ -77,30 +79,4 @@ function getDetails(latitude, longitude) {
         $("#map_canvas").width('400px');
         google.maps.event.trigger(map, 'resize');
     });
-}
-
-function drawMap(latitude, longitude) {
-    //alert('draw map');
-    var centerLocation = new google.maps.LatLng(latitude, longitude);
-
-    var myOptions = {
-        center: centerLocation,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map_element = document.getElementById("map_canvas");
-    map = new google.maps.Map(map_element, myOptions);
-
-    var marker = new google.maps.Marker({
-        position: centerLocation,
-        title: "My Current Location!"
-    });
-    marker.setMap(map);
-
-    var mapwidth = $(window).width('400px');
-    var mapheight = $(window).height('400px');
-    $("#map_canvas").height(mapheight);
-    $("#map_canvas").width(mapwidth);
-    google.maps.event.trigger(map, 'resize');
 }

@@ -3,10 +3,11 @@
 var db = null;
 var dbCreated = false;
 document.addEventListener("deviceready", onDeviceReady, false);
-
+var category = "";
 // PhoneGap is ready
 //
 function onDeviceReady() {
+	category = GET.cate;
 	db = window.openDatabase("DB6", "1.0", "DB6", 2000);
 	//alert('before pop');
 	db.transaction(populateDB, errorCB, successCB);
@@ -14,9 +15,9 @@ function onDeviceReady() {
 	db.transaction(getAlcohol, errorCB);		
 }
 
+
 function getAlcohol(tx){
-	//alert('before getAl');
-	var sql = "select distinct cName from COCKTAIL where cCategory = 'vodka'";
+	var sql = "select distinct cName from COCKTAIL where cCategory = '"+category+"'";
 	tx.executeSql(sql, [] , getAlcohol_success);
 }
 
@@ -29,7 +30,7 @@ function getAlcohol_success(tx, results){
 	for (var i=0; i<len; i++){
 		var alcohol = results.rows.item(i);
 		//alert('before append');
-		$('#vodkaList').append('<li><a href="location.html?name=' + alcohol.cName + '&category=vodka"><p>' + alcohol.cName + '</p></li>');
+		$('#itemList').append('<li><a href="location.html?name=' + alcohol.cName + '&category='+category+'"><p>' + alcohol.cName + '</p></li>');
 	}
 	
 	//alert('before append');
@@ -55,20 +56,21 @@ function insert() {
 	//alert('insert called');
 	db.transaction(function(tx){		 
 	var id = document.getElementById("id").value;
-	alert(id);
+	//alert(id);
 	var cName = document.getElementById("cName").value;
-	alert(cName);
+	//alert(cName);
 	var cCategory = document.getElementById("cCategory").value;
-	alert(cCategory);
+	//alert(cCategory);
 	var cImg = document.getElementById("cImg").value;
-	alert(cImg);
+	//alert(cImg);
 	var cLongtitude = document.getElementById("cLongtitude").value;
-	alert(cLongtitude);
+	//alert(cLongtitude);
 	var cLatitude = document.getElementById("cLatitude").value;
-	alert(cLatitude);
+	//alert(cLatitude);
 	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
-	alert(tx);
+	//alert(tx);
    });
 }
 
 
+// JavaScript Document
