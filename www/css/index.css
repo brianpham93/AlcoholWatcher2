@@ -1,0 +1,35 @@
+@media (height:1280px) and (width:720px){
+body {
+	background-color: #CCCCCC;
+}
+#header {
+	background-color: #666666;
+	width: 720px;
+	max-height: 150px;
+}
+#whiskey {
+	width: 700px;
+	height: 250px;
+}
+
+
+
+
+}
+#h1 {
+	color: #00CCFF;
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-variant: normal;
+	font-weight: lighter;
+	text-align: left;
+	font-size: 75px;
+}
+#h2 {
+	color: #CCFFFF;
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	text-align: right;
+}
+#whiskeyLb {
+	margin-left: 500px;
+	padding-bottom: 100px;
+}
