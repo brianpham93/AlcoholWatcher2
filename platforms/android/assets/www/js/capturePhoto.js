@@ -43,6 +43,19 @@ function onFail(message) {
 function getRandomInt (min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function randomstring(L){
+    var s= '';
+    var randomchar=function(){
+    	var n= Math.floor(Math.random()*62);
+    	if(n<10) return n; //1-10
+    	if(n<36) return String.fromCharCode(n+55); //A-Z
+    	return String.fromCharCode(n+61); //a-z
+    }
+    while(s.length< L) s+= randomchar();
+    return s;
+}
+
 function saveToDB(){
 	var id = getRandomInt(1,1000000);
 	//alert(id);
@@ -60,7 +73,7 @@ function saveToDB(){
 }
 function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
 	//alert('open db');
-	db = window.openDatabase("DB5", "1.0", "DB5", 2000);
+	db = window.openDatabase("DB6", "1.0", "DB6", 2000);
 	//alert('start insert');
 	db.transaction(function(tx){
 	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id, cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);

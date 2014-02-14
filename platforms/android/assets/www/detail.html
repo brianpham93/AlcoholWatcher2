@@ -4,12 +4,62 @@
 <meta charset="utf-8">
 <title>Untitled Document</title>
 <script src="js/getParam.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile.structure-1.4.1.min.css"></script>
 </head>
 <script>
-	var id = GET.id;
+	var id ="";
+	function getImage(){
+		id = GET.id;
+		alert(id);
+		alert('open db');
+		db = window.openDatabase("DB6", "1.0", "DB6", 2000);
+		alert('start get');
+		db.transaction(getAlcohol, errorCB);	
+	}
+	
+	function getAlcohol(tx){
+		alert('before select');
+		alert(id);
+		var sql = "select distinct cImg from COCKTAIL where id = '" +id+ "'";
+		alert(sql);
+		alert('before exe');
+		tx.executeSql(sql, [] , getAlcohol_success);
+		alert('after exe');
+	}
+	
+	function getAlcohol_success(tx,results){
+		alert('getAlcohol');
+		var len = results.rows.length;
+		var img;
+		alert(len);
+		//var s = "";
+		for (var i=0; i<len; i++){
+			var alcohol = results.rows.item(i);
+			img = alcohol.cImg;
+		}
+		alert(img);
+		var path = /file:\/\/.*?(\/.*)/.exec(img)[1];
+		alert(path);
+		$('#img').attr('src',path);
+		alert('prepare reload');
+		//parent.document.getElementById("img").reload();
+		//alert($("#img").src);
+	}
+	function errorCB(err){
+		alert("Error : " + err);
+	}
+	
+	window.onload = function () {
+    if(! window.device)
+        getImage();
+	}
 		
 </script>
 <body>
-		
+	<div id="img">
+    	<img src="" style="max-height:400px;max-width:300px">
+    </div>
+    <div id="map_canvas"></div>	
 </body>
 </html>

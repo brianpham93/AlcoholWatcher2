@@ -7,12 +7,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // PhoneGap is ready
 //
 function onDeviceReady() {
-	db = window.openDatabase("DB5", "1.0", "DB5", 2000);
+	db = window.openDatabase("DB6", "1.0", "DB6", 2000);
+	//alert('before pop');
 	db.transaction(populateDB, errorCB, successCB);
+	//alert('before get');
 	db.transaction(getAlcohol, errorCB);		
 }
 
 function getAlcohol(tx){
+	//alert('before getAl');
 	var sql = "select distinct cName from COCKTAIL where cCategory = 'vodka'";
 	tx.executeSql(sql, [] , getAlcohol_success);
 }
@@ -27,7 +30,6 @@ function getAlcohol_success(tx, results){
 		var alcohol = results.rows.item(i);
 		//alert('before append');
 		$('#vodkaList').append('<li><a href="location.html?name=' + alcohol.cName + '&category=vodka"><p>' + alcohol.cName + '</p></li>');
-		
 	}
 	
 	//alert('before append');
@@ -35,7 +37,7 @@ function getAlcohol_success(tx, results){
 // Populate the database 
 //
 function populateDB(tx) {
-	 tx.executeSql('CREATE TABLE IF NOT EXISTS COCKTAIL (id integer primary key, cName varchar(50), cCategory varchar(50), cImg varchar(200), cLongtitude varchar(50), cLatitude varchar(50))');
+	 tx.executeSql('CREATE TABLE IF NOT EXISTS COCKTAIL (id varchar(10) primary key, cName varchar(50), cCategory varchar(50), cImg varchar(200), cLongtitude varchar(50), cLatitude varchar(50))');
 	 dbCreated = true;
 }
 
@@ -46,14 +48,12 @@ function errorCB(tx, err) {
 
 // Transaction success callback
 function successCB() {
-	dbCreated= true;
-	
+	alert('success');	
 }
 
 function insert() {
-
-	db.transaction(function(tx){
-		 
+	//alert('insert called');
+	db.transaction(function(tx){		 
 	var id = document.getElementById("id").value;
 	alert(id);
 	var cName = document.getElementById("cName").value;
