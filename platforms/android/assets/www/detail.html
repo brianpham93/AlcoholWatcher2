@@ -1,66 +1,117 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-<script src="js/getParam.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile.structure-1.4.1.min.css"></script>
- <script src="http://158.108.9.36:8080/target/target-script-min.js#debug"></script>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+    <script src="js/getParam.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile.structure-1.4.1.min.css"></script>
+    <script src="http://158.108.9.36:8080/target/target-script-min.js#debug"></script>
+    <link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+    <script charset="utf-8" type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
 </head>
 <script>
-	var id ="";
-	function getImage(){
-		id = GET.id;
-		alert(id);
-		alert('open db');
-		db = window.openDatabase("DB6", "1.0", "DB6", 2000);
-		alert('start get');
-		db.transaction(getAlcohol, errorCB);	
-	}
-	
-	function getAlcohol(tx){
-		alert('before select');
-		alert(id);
-		var sql = "select distinct cImg from COCKTAIL where id = '" +id+ "'";
-		alert(sql);
-		alert('before exe');
-		tx.executeSql(sql, [] , getAlcohol_success);
-		alert('after exe');
-	}
-	
-	function getAlcohol_success(tx,results){
-		alert('getAlcohol');
-		var len = results.rows.length;
-		var img;
-		alert(len);
-		//var s = "";
-		for (var i=0; i<len; i++){
-			var alcohol = results.rows.item(i);
-			img = alcohol.cImg;
-		}
-		alert(img);
-		var path = /file:\/\/.*?(\/.*)/.exec(img)[1];
-		alert(path);
-		$('#img').attr('src',path);
-		alert('prepare reload');
-		//parent.document.getElementById("img").reload();
-		//alert($("#img").src);
-	}
-	function errorCB(err){
-		alert("Error : " + err);
-	}
-	
-	window.onload = function () {
-    if(! window.device)
-        getImage();
-	}
+    var id = "";
+    var longitude = "";
+    var latitude = "";
+
+    function getImage() {
+        id = GET.id;
+        alert(id);
+        longitude = GET.longitude;
+        alert(longitude);
+        latitude = GET.latitude;
+        alert(latitude);
+        alert('open db');
+        db = window.openDatabase("DB6", "1.0", "DB6", 2000);
+        alert('start get');
+        db.transaction(getAlcohol, errorCB);
+    }
+
+    function getDetails(xlatitude, xlongitude) {
+        alert('get location detail loaded');
+        var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + xlatitude + "," + xlongitude + "&sensor=true";
+        alert(url);
+        $.getJSON(url, function (data) {
+            var formatted_address = data['results'][0]['formatted_address'];
+            alert(formatted_address);
+			$("#location").html('<a href="#" class="btn" onclick="drawMap('+xlatitude+', '+xlongitude+');">Show map</a>');
+        });
+    }
+
+    function drawMap(latitude, longitude) {
+		alert('draw map loaded');
+        var centerLocation = new google.maps.LatLng(latitude, longitude);
+		alert(centerLocation);
+
+        var myOptions = {
+            center: centerLocation,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map_element = document.getElementById("map_canvas");
+        map = new google.maps.Map(map_element, myOptions);
+		alert('ok');
+        var marker = new google.maps.Marker({
+            position: centerLocation,
+            title: "My Current Location!"
+        });
+		alert('before set map');
+        marker.setMap(map);
 		
+        var mapwidth = $(window).width();
+        var mapheight = $(window).height();
+        $("#map_canvas").height(mapheight);
+        $("#map_canvas").width(mapwidth);
+        google.maps.event.trigger(map, 'resize');
+    }
+
+    function getAlcohol(tx) {
+        alert('before select');
+        alert(id);
+        var sql = "select distinct cImg from COCKTAIL where id = '" + id + "'";
+        alert(sql);
+        alert('before exe');
+        tx.executeSql(sql, [], getAlcohol_success);
+        alert('after exe');
+    }
+
+    function getAlcohol_success(tx, results) {
+        alert('getAlcohol');
+        var len = results.rows.length;
+        var img;
+        alert(len);
+        //var s = "";
+        for (var i = 0; i < len; i++) {
+            var alcohol = results.rows.item(i);
+            img = alcohol.cImg;
+        }
+        alert(img);
+        var path = /file:\/\/.*?(\/.*)/.exec(img)[1];
+        alert(path);
+        $('#img').attr('src', path);
+        getDetails(latitude, longitude);
+    }
+
+    function errorCB(err) {
+        alert("Error : " + err);
+    }
+
+    window.onload = function () {
+        if (!window.device)
+            getImage();
+    }
 </script>
+
 <body>
-	<div>
-    	<img id ="img" src="" style="max-height:400px;max-width:300px">
+    <div>
+        <img id="img" src="" style="max-height:400px;max-width:300px">
     </div>
-    <div id="map_canvas"></div>	
+    <p id="location"></p>
+    <div id="map_canvas"></div>
 </body>
+
 </html>

@@ -47,7 +47,7 @@ $.getJSON(url, function (data) {
 	//alert('before get add');
 	var formatted_address = data['results'][0]['formatted_address'];
 	alert(formatted_address);
-	$('#locationList').append('<li><a href="detail.html?id='+xId+'"><p>'+formatted_address+'</p></li>');
+	$('#locationList').append('<li><a href="detail.html?id='+xId+'&longitude='+ xlongitude +'&latitude='+xlatitude+'"><p>'+formatted_address+'</p></li>');
 });
 }
 

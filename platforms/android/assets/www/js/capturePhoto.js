@@ -57,7 +57,7 @@ function randomstring(L){
 }
 
 function saveToDB(){
-	var id = getRandomInt(1,1000000);
+	var id = randomstring(5);
 	//alert(id);
 	var name = GET.aName;
 	//alert(name);
