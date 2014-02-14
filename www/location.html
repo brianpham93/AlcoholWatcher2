@@ -16,12 +16,17 @@ function navigateToAdd(){
 	var category = GET.category;
 	window.location.href = 'addNew.html?aName='+name+'&category='+ category +'';
 }
+function backToCategory(){
+	var category = GET.category;
+	window.location.href = "category.html?cate=" + category +"";
+}
 </script>
 </head>
 
 <body>
 <div id="header">
 <h1> Location </h1>
+<input type="button" value = "Back" onClick="backToCategory()">
 </div>
 
 <ol id = "locationList">

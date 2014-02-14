@@ -40,9 +40,6 @@ function onFail(message) {
   alert('Failed because: ' + message);
 }
 
-function getRandomInt (min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function randomstring(L){
     var s= '';
@@ -82,8 +79,9 @@ function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
 }
 function successCB(){
 	var name = GET.aName;
-	//alert(name);
 	var category = GET.category
+	alert(name);
+	alert(category);
 	window.location.href = 'location.html?name='+name+'&category='+category+'';
 	//alert('done');
 }

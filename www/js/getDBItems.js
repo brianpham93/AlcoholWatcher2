@@ -8,6 +8,7 @@ var category = "";
 //
 function onDeviceReady() {
 	category = GET.cate;
+	document.getElementById("h1").innerHTML = "Cocktail with " + category;
 	db = window.openDatabase("DB6", "1.0", "DB6", 2000);
 	//alert('before pop');
 	db.transaction(populateDB, errorCB, successCB);

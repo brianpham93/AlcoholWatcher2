@@ -47,13 +47,15 @@ function getDetails(latitude, longitude) {
     //alert(url);
     $.getJSON(url, function (data) {
         var formatted_address = data['results'][0]['formatted_address'];
+		document.getElementById("longtt").innerHTML = longitude;
+		document.getElementById("latt").innerHTML = latitude;
        /* //alert(formatted_address);
         htmlData = 'Latitude : ' + latitude + '';
         htmlData += 'Longitude : ' + longitude + '';
         htmlData += 'Location : ' + formatted_address;
-        document.getElementById("longtt").innerHTML = longitude;
+        
         //alert(longitude);
-        document.getElementById("latt").innerHTML = latitude;
+        
         //alert(latitude);
         //alert('draw map');*/
         var centerLocation = new google.maps.LatLng(latitude, longitude);
