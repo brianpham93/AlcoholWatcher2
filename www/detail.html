@@ -19,32 +19,32 @@
 
     function getImage() {
         id = GET.id;
-        alert(id);
+        //alert(id);
         longitude = GET.longitude;
-        alert(longitude);
+        //alert(longitude);
         latitude = GET.latitude;
-        alert(latitude);
-        alert('open db');
+        //alert(latitude);
+        //alert('open db');
         db = window.openDatabase("DB6", "1.0", "DB6", 2000);
-        alert('start get');
+        //alert('start get');
         db.transaction(getAlcohol, errorCB);
     }
 
     function getDetails(xlatitude, xlongitude) {
-        alert('get location detail loaded');
+        //alert('get location detail loaded');
         var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + xlatitude + "," + xlongitude + "&sensor=true";
-        alert(url);
+        //alert(url);
         $.getJSON(url, function (data) {
             var formatted_address = data['results'][0]['formatted_address'];
-            alert(formatted_address);
+            //alert(formatted_address);
 			$("#location").html('<a href="#" class="btn" onclick="drawMap('+xlatitude+', '+xlongitude+');">Show map</a>');
         });
     }
 
     function drawMap(latitude, longitude) {
-		alert('draw map loaded');
+		//alert('draw map loaded');
         var centerLocation = new google.maps.LatLng(latitude, longitude);
-		alert(centerLocation);
+		//alert(centerLocation);
 
         var myOptions = {
             center: centerLocation,
@@ -54,44 +54,44 @@
 
         map_element = document.getElementById("map_canvas");
         map = new google.maps.Map(map_element, myOptions);
-		alert('ok');
+		//alert('ok');
         var marker = new google.maps.Marker({
             position: centerLocation,
             title: "My Current Location!"
         });
-		alert('before set map');
+		//alert('before set map');
         marker.setMap(map);
 		
         var mapwidth = $(window).width();
         var mapheight = $(window).height();
-        $("#map_canvas").height(mapheight);
-        $("#map_canvas").width(mapwidth);
+        $("#map_canvas").height('400px');
+        $("#map_canvas").width('400px');
         google.maps.event.trigger(map, 'resize');
     }
 
     function getAlcohol(tx) {
-        alert('before select');
-        alert(id);
+        //alert('before select');
+        //alert(id);
         var sql = "select distinct cImg from COCKTAIL where id = '" + id + "'";
-        alert(sql);
-        alert('before exe');
+        //alert(sql);
+        //alert('before exe');
         tx.executeSql(sql, [], getAlcohol_success);
         alert('after exe');
     }
 
     function getAlcohol_success(tx, results) {
-        alert('getAlcohol');
+       // alert('getAlcohol');
         var len = results.rows.length;
         var img;
-        alert(len);
+       // alert(len);
         //var s = "";
         for (var i = 0; i < len; i++) {
             var alcohol = results.rows.item(i);
             img = alcohol.cImg;
         }
-        alert(img);
+        //alert(img);
         var path = /file:\/\/.*?(\/.*)/.exec(img)[1];
-        alert(path);
+        //alert(path);
         $('#img').attr('src', path);
         getDetails(latitude, longitude);
     }

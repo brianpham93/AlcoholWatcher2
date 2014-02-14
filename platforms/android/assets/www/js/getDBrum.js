@@ -48,7 +48,7 @@ function errorCB(tx, err) {
 
 // Transaction success callback
 function successCB() {
-	alert('success');	
+	//alert('success');	
 }
 
 function insert() {

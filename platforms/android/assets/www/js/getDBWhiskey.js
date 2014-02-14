@@ -49,26 +49,26 @@ function errorCB(tx, err) {
 
 // Transaction success callback
 function successCB() {
-	alert('success');	
+	//alert('success');	
 }
 
 function insert() {
-	alert('insert called');
+	//alert('insert called');
 	db.transaction(function(tx){		 
 	var id = document.getElementById("id").value;
-	alert(id);
+	//alert(id);
 	var cName = document.getElementById("cName").value;
-	alert(cName);
+	//alert(cName);
 	var cCategory = document.getElementById("cCategory").value;
-	alert(cCategory);
+	//alert(cCategory);
 	var cImg = document.getElementById("cImg").value;
-	alert(cImg);
+	//alert(cImg);
 	var cLongtitude = document.getElementById("cLongtitude").value;
-	alert(cLongtitude);
+	//alert(cLongtitude);
 	var cLatitude = document.getElementById("cLatitude").value;
-	alert(cLatitude);
+	//alert(cLatitude);
 	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
-	alert(tx);
+	//alert(tx);
    });
 }
 

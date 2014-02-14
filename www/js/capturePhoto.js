@@ -81,7 +81,7 @@ function insertIntoDB(id,cName,cCategory,cImg,cLongtitude,cLatitude){
 });
 }
 function successCB(){
-	alert('done');
+	//alert('done');
 }
 function errorCB(err){
 	alert(err);

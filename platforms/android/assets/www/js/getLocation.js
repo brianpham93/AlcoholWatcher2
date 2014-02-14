@@ -11,27 +11,27 @@ function findMyLocation() {
     states[Connection.CELL_4G] = 'Cell 4G connection';
     states[Connection.CELL] = 'Cell generic connection';
     states[Connection.NONE] = 'No network connection'
-    alert('Connection type: ' + states[networkConnection]);
+    //alert('Connection type: ' + states[networkConnection]);
     if (networkConnection != null) {
         //Find your location
-        alert('start get pos');
+        //alert('start get pos');
         navigator.geolocation.getCurrentPosition(onSuccess, onError, {
             timeout: 300000,
             enableHighAccuracy: true,
             maximumAge: 90000
         });
-        alert('after get possition');
+        //alert('after get possition');
     } else {
         alert('Please check your network connection and try again.');
     }
 }
 
 function onSuccess(position) {
-    alert('succ');
+    //alert('succ');
     var latitude = position.coords.latitude;
-    alert(latitude);
+    //alert(latitude);
     var longitude = position.coords.longitude;
-    alert(longitude);
+    //alert(longitude);
     getDetails(latitude, longitude);
 }
 
@@ -42,17 +42,17 @@ function onError(error) {
 function getDetails(latitude, longitude) {
     //alert('get detail loaded');
     var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
-    alert(url);
+    //alert(url);
     $.getJSON(url, function (data) {
         var formatted_address = data['results'][0]['formatted_address'];
-        alert(formatted_address);
+        //alert(formatted_address);
         htmlData = 'Latitude : ' + latitude + '';
         htmlData += 'Longitude : ' + longitude + '';
         htmlData += 'Location : ' + formatted_address;
         document.getElementById("longtt").innerHTML = longitude;
-        alert(longitude);
+        //alert(longitude);
         document.getElementById("latt").innerHTML = latitude;
-        alert(latitude);
+        //alert(latitude);
         //alert('draw map');
         var centerLocation = new google.maps.LatLng(latitude, longitude);
 
@@ -73,8 +73,8 @@ function getDetails(latitude, longitude) {
 
         var mapwidth = $(window).width();
         var mapheight = $(window).height();
-        $("#map_canvas").height(mapheight);
-        $("#map_canvas").width(mapwidth);
+        $("#map_canvas").height('400px');
+        $("#map_canvas").width('400px');
         google.maps.event.trigger(map, 'resize');
     });
 }
