@@ -3,29 +3,35 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id ="title"></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/category.css" rel="stylesheet" type="text/css">
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="http://158.108.9.36:8080/target/target-script-min.js#debug"></script>
     <script src="js/getParam.js"></script>   
     <script src="js/getDBItems.js"></script>
-    <script>		
+    <script>        
         window.onload = function () {
             if (!window.device)
                 onDeviceReady();
+        }
+        function backToIndex(){
+            window.location.href="index.html";
         }
     </script>
 </head>
 
 <body>
-
-    <div id="header">
-        <h1 id="h1"></h1>
+    <h1 id="h1"></h1>
+    <div id="wrapper">
+    	<div id="scroller">
+            <ol id="itemList">
+            </ol>
+         </div>
     </div>
 
-    <ol id="itemList">
-    </ol>
-
-    <div>
+    <!--<div>
         <p>For testing</p>
         <label>ID</label>
         <input type="text" id="id">
@@ -46,9 +52,14 @@
         <input type="text" id="cLatitude">
         <br>
         <label></label>
-        <input type="button" value="Add" onClick="insert()" value="save">
-    </div>
+    </div>-->
 
+    <div>
+    <input class="btn btn-info" type="button" onClick="backToIndex()" value="Back"> 
+    <input class="btn btn-inverse" type="button" value="Add" onClick="insert()" value="save">
+    </div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

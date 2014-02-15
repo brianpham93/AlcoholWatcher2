@@ -3,16 +3,19 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untitled Document</title>
     <script src="js/getParam.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile.structure-1.4.1.min.css"></script>
-    <script src="http://158.108.9.36:8080/target/target-script-min.js#debug"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/addnew.css" rel="stylesheet" type="text/css">
     <link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
     <script charset="utf-8" type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
 </head>
-<script>
+ <script>
     var id = "";
     var longitude = "";
     var latitude = "";
@@ -37,14 +40,14 @@
         $.getJSON(url, function (data) {
             var formatted_address = data['results'][0]['formatted_address'];
             //alert(formatted_address);
-			$("#location").html('<a href="#" class="btn" onclick="drawMap('+xlatitude+', '+xlongitude+');">Show map</a>');
+            $("#location").html('<a href="#" class="btn" onclick="drawMap('+xlatitude+', '+xlongitude+');">Show map</a>');
         });
     }
 
     function drawMap(latitude, longitude) {
-		//alert('draw map loaded');
+        //alert('draw map loaded');
         var centerLocation = new google.maps.LatLng(latitude, longitude);
-		//alert(centerLocation);
+        //alert(centerLocation);
 
         var myOptions = {
             center: centerLocation,
@@ -54,14 +57,14 @@
 
         map_element = document.getElementById("map_canvas");
         map = new google.maps.Map(map_element, myOptions);
-		//alert('ok');
+        //alert('ok');
         var marker = new google.maps.Marker({
             position: centerLocation,
             title: "My Current Location!"
         });
-		//alert('before set map');
+        //alert('before set map');
         marker.setMap(map);
-		
+        
         var mapwidth = $(window).width();
         var mapheight = $(window).height();
         $("#map_canvas").height('400px');
@@ -104,14 +107,19 @@
         if (!window.device)
             getImage();
     }
-</script>
+ </script>
 
 <body>
+
+    <h1>Detail</h1>
     <div>
-        <img id="img" src="" style="max-height:400px;max-width:300px">
+        <img class="img-polaroid" id="img" src="" style="max-height:400px;max-width:300px">
     </div>
     <p id="location"></p>
-    <div id="map_canvas"></div>
+    <div class="thumbnail" id="map_canvas"></div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

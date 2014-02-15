@@ -77,8 +77,8 @@ function getDetails(latitude, longitude) {
 
         var mapwidth = $(window).width();
         var mapheight = $(window).height();
-        $("#map_canvas").height('400px');
-        $("#map_canvas").width('400px');
+        $("#map_canvas").height('300px');
+        $("#map_canvas").width('600px');
         google.maps.event.trigger(map, 'resize');
     });
 }

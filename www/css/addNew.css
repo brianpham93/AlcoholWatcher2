@@ -1,29 +1,41 @@
-@media (width:720px) and (height:1280px){
-#addPhoto {
-	width: 300px;
-	margin-left: 210px;
-	height: 400px;
-	margin-right: 210px;
-	position: fixed;
-	top: 20px;
-	left: 0px;
-	bottom: 20px;
-}
-#addPhoto #photo {
-
-}
-#addPhoto #captureBtn {
-	width: 200px;
-	height: 30px;
-	margin-left: 50px;
-	position: fixed;
+body
+{
+	background-color:#C5C5C5;
 }
 
-
-
+h1
+{
+	color:#0FF;
+	background-color:#666;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+	/*font-family:Georgia, "Times New Roman";*/
+	text-align:center;
+	margin-top: 0px;
 }
-body {
-	width: 720px;
-	height: 1280px;
-	position: fixed;
+
+ol /*change append function in the getDBWhiskey.js to render the output as button*/
+{
+	/*list-style-type:none;*/
+	margin-left:-18px;
+	margin-right: -18px;
+	/*margin-right:auto;*/
+	/*text-align:center;*/
+}
+
+div
+{
+	text-align: center;
+}
+
+div.thumbnail
+{
+	background-color: #FFFFFF;
+	width: 310px;
+	height: 410px;
+	/*text-align: center;
+	align-items:center;
+	justify-content:center;*/
 }
