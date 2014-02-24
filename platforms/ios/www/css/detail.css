@@ -1,0 +1,30 @@
+body
+{
+	background-color:#C5C5C5;
+}
+
+h1
+{
+	color:#0FF;
+	background-color:#666;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	/*font-family:Georgia, "Times New Roman";*/
+	text-align:center;
+	margin-top: 0px;
+}
+
+div
+{
+	text-align: center;
+}
+
+#map-canvas
+{
+	text-align: center;
+}
+
+#location
+{
+	text-align: left;
+}
