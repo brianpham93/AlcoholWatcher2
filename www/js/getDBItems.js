@@ -16,18 +16,6 @@ function onDeviceReady() {
 	db.transaction(getAlcohol, errorCB);		
 }
 
-function randomstring(L){
-    var s= '';
-    var randomchar=function(){
-    	var n= Math.floor(Math.random()*62);
-    	if(n<10) return n; //1-10
-    	if(n<36) return String.fromCharCode(n+55); //A-Z
-    	return String.fromCharCode(n+61); //a-z
-    }
-    while(s.length< L) s+= randomchar();
-    return s;
-}
-
 
 function getAlcohol(tx){
 	var sql = "select distinct cName from COCKTAIL where cCategory = '"+category+"'";
@@ -66,24 +54,22 @@ function successCB() {
 }
 
 function insert() {
-	alert('insert called');
+	//alert('insert called');
 	db.transaction(function(tx){		 
-	var id = randomString(5);
-	alert(id);
-	var description = document.getElementById("shortDescription").value;
-	alert(description);
-	var class = document.getElementById("class").value;
-	alert(class);
-	var dueDate = document.getElementById("dueDate").value;
-	alert(dueDate);
-	var dueTime = document.getElementById("dueTime").value;
-	alert(dueTime);
-	var type = document.getElementById("type").value;
-	alert(type);
-	var additionalInfo = document.getElementById("additionalInfo").value;
-	alert(type);
-	tx.executeSql('INSERT INTO deadlines (id, description, class, dueDate, dueTime, type, additionalInfo) VALUES (?,?,?,?,?,?,?)',[id,description,class,dueDate, dueTime, type, additionalInfo],successCB, errorCB);
-	alert(tx);
+	var id = document.getElementById("id").value;
+	//alert(id);
+	var cName = document.getElementById("cName").value;
+	//alert(cName);
+	var cCategory = document.getElementById("cCategory").value;
+	//alert(cCategory);
+	var cImg = document.getElementById("cImg").value;
+	//alert(cImg);
+	var cLongtitude = document.getElementById("cLongtitude").value;
+	//alert(cLongtitude);
+	var cLatitude = document.getElementById("cLatitude").value;
+	//alert(cLatitude);
+	tx.executeSql('INSERT INTO COCKTAIL (id, cName, cCategory, cImg, cLongtitude, cLatitude) VALUES (?,?,?,?,?,?)',[id,cName,cCategory,cImg,cLongtitude,cLatitude],successCB, errorCB);
+	//alert(tx);
    });
 }
 

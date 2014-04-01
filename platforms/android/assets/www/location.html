@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Untitled Document</title>
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="js/getParam.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="css/category.css" rel="stylesheet" type="text/css">
+	<link href="https://developers.google.com/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+	<script charset="utf-8" type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<!-- <script charset="utf-8" type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+	<script src="js/getDBLocation.js"></script>
+	<script>
+	function navigateToAdd(){
+		var name = GET.name;
+		var category = GET.category;
+		window.location.href = 'addNew.html?aName='+name+'&category='+ category +'';
+	}
+	function backToCategory(){
+		var category = GET.category;
+		window.location.href = "category.html?cate=" + category +"";
+	}
+	</script>
+</head>
+
+<body>
+		<h1> Location </h1>	
+
+	<ol id = "locationList">
+	</ol>
+	<br>
+
+	<div id="btn_set">
+		<input class="btn btn-info" type="button" value = "Back" onClick="backToCategory()">
+		<input class="btn btn-inverse" type="button" value="Add" onClick="navigateToAdd()">
+	</div>	
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
